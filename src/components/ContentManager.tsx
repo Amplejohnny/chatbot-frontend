@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 interface Content {
@@ -16,25 +16,28 @@ const ContentManager: React.FC = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    fetchContents();
-  }, []);
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://chatbot-backend-l8o4.onrender.com";
 
-  const fetchContents = async () => {
+  const fetchContents = useCallback(async () => {
     try {
-      const response = await axios.get<Content[]>("/content");
+      const response = await axios.get<Content[]>(`${API_URL}/content`);
       setContents(response.data);
     } catch (error) {
       console.error("Failed to fetch contents:", error);
       setMessage("Failed to fetch content.");
     }
-  };
+  }, [API_URL]);
+
+  useEffect(() => {
+    fetchContents();
+  }, [fetchContents]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       if (editingId) {
-        const response = await axios.put(`/content/${editingId}`, {
+        const response = await axios.put(`${API_URL}/content/${editingId}`, {
           title,
           text,
         });
@@ -44,7 +47,10 @@ const ContentManager: React.FC = () => {
         setEditingId(null);
         setMessage("Content updated successfully!");
       } else {
-        const response = await axios.post("/content", { title, text });
+        const response = await axios.post(`${API_URL}/content`, {
+          title,
+          text,
+        });
         setContents([...contents, response.data]);
         setMessage("Content added successfully!");
       }
@@ -64,7 +70,7 @@ const ContentManager: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`/content/${id}`);
+      await axios.delete(`${API_URL}/content/${id}`);
       setContents(contents.filter((c) => c._id !== id));
       setMessage("Content deleted successfully!");
     } catch (error) {

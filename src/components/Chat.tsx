@@ -10,6 +10,9 @@ const Chat: React.FC = () => {
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
 
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://chatbot-backend-l8o4.onrender.com";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!message.trim()) return;
@@ -18,7 +21,7 @@ const Chat: React.FC = () => {
     setChatHistory([...chatHistory, userMessage]);
 
     try {
-      const response = await axios.post<{ reply: string }>("/chat", {
+      const response = await axios.post<{ reply: string }>(`${API_URL}/chat`, {
         message,
       });
       const botMessage: ChatMessage = {
