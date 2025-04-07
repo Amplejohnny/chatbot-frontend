@@ -123,13 +123,13 @@ const ContentManager: React.FC = () => {
             <div className="flex gap-2 w-full sm:w-auto">
               <button
                 onClick={() => handleEdit(content)}
-                className="bg-yellow-500 text-white px-2 py-1 rounded text-xs sm:text-sm w-full sm:w-auto"
+                className="bg-yellow-500 text-white px-2 py-1 rounded text-xs sm:text-sm w-full sm:w-auto cursor-pointer"
               >
                 Edit
               </button>
               <button
                 onClick={() => handleDelete(content._id)}
-                className="bg-red-500 text-white px-2 py-1 rounded text-xs sm:text-sm w-full sm:w-auto"
+                className="bg-red-500 text-white px-2 py-1 rounded text-xs sm:text-sm w-full sm:w-auto cursor-pointer"
               >
                 Delete
               </button>
