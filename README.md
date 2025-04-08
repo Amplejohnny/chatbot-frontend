@@ -16,8 +16,8 @@ This is the **frontend** for the **Nimbou CMS** web application — a modern con
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Amplejohnny/nimbou-frontend.git
-cd nimbou-frontend
+git clone https://github.com/Amplejohnny/chatbot-frontend.git
+cd chatbot-frontend
 ```
 
 ### 2. Install Dependencies
