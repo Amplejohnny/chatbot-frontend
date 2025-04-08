@@ -1,7 +1,3 @@
-
----
-
-```markdown
 # Nimbou CMS Frontend (React + TypeScript)
 
 This is the **frontend** for the **Nimbou CMS** web application — a modern content management system designed for simplicity and power. Built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**, it delivers a fast, responsive, and developer-friendly UI.
