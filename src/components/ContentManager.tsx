@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 interface Content {
   _id: string;
@@ -57,9 +57,15 @@ const ContentManager: React.FC = () => {
       setTitle("");
       setText("");
     } catch (error) {
-      console.error("Failed to save content:", error);
-      if (axios.isAxiosError(error) && error.response?.data?.message) {
-        setMessage(error.response.data.message);
+      // Type error as AxiosError with a response shape
+      const axiosError = error as AxiosError<{ message?: string }>;
+      console.error("Failed to save content:", axiosError);
+      // Check if the error has a response with data
+      if (axiosError.response?.data) {
+        setMessage(
+          axiosError.response.data.message ||
+            "Content with this title already exists"
+        );
       } else {
         setMessage("Failed to save content.");
       }
