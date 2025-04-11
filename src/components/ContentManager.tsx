@@ -58,7 +58,11 @@ const ContentManager: React.FC = () => {
       setText("");
     } catch (error) {
       console.error("Failed to save content:", error);
-      setMessage("Failed to save content.");
+      if (axios.isAxiosError(error) && error.response?.data?.message) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage("Failed to save content.");
+      }
     }
   };
 
