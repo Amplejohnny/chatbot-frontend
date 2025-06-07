@@ -33,7 +33,7 @@ const Chat: React.FC = () => {
       console.error("Error fetching response:", error);
       const errorMessage: ChatMessage = {
         sender: "bot",
-        text: "Error: Could not get a response.",
+        text: "Sorry, something went wrong. Please try again.",
       };
       setChatHistory((prev) => [...prev, errorMessage]);
     }
